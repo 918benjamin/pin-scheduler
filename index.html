@@ -49,7 +49,7 @@
             {{#each rows}}
               <tr>
               {{#unless @index}}
-                <th rowspan="{{../../graphics}}">Board {{inc @index}}</th>
+                <th rowspan="{{../../graphics}}">Board {{../number}}</th>
               {{/unless}}
               <th>{{inc @index}}</th>
               {{#each this}}
