@@ -10,6 +10,133 @@
   <body>
     <header>
       <h1>Alayna Creative Pin Scheduler</h1>
+      <form>
+        <label for="startDate">Start Date</label>
+        <input type="date" name="startDate" id="startDate" required>
+
+        <label for="days">Number of Days</label>
+        <input type="number" name="days" id="days" min="1" max="30" required>
+
+        <label for="graphics">Number of Graphics (per URL)</label>
+        <input type="number" name="graphics" id="graphics" min="1" max="10" required>
+
+        <label for="boards">Number of Boards</label>
+        <input type="number" name="boards" id="boards" min="1" max="30" required>
+
+        <button type="submit">Create Schedule</button>
+      </form>
     </header>
+
+    <main>
+    </main>
+
+    <script id="table" type="text/x-handlebars">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2"></th>
+            <th colspan="{{days.length}}">Days</th>
+          </tr>
+          <tr>
+            <th colspan="2"></th>
+            {{#each days}}
+            <th>Day {{this}}</th>
+            {{/each}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each boards}}
+            {{#each rows}}
+              <tr>
+              {{#unless @index}}
+                <th rowspan="{{../../graphics}}">Board {{inc @index}}</th>
+              {{/unless}}
+              <th>{{inc @index}}</th>
+              {{#each this}}
+              <td>{{this}}</td>
+              {{/each}}
+              </tr>
+            {{/each}}
+          {{/each}}
+        </tbody>
+      </table>
+    </script>
   </body>
+
+  <!-- <table>
+    <thead>
+      <tr>
+        <th colspan="2"></th>
+        <th colspan="4">Days</th>
+      </tr>
+      <tr>
+        <th colspan="2"></th>
+        <th>Day 1</th>
+        <th>Day 2</th>
+        <th>Day 3</th>
+        <th>Day 4</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th rowspan="4">Board 1</th>
+      <th>1</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th rowspan="4">Board 2</th>
+      <th>1</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7/13/22</td>
+      <td>7/14/22</td>
+      <td>7/15/22</td>
+      <td>7/16/22</td>
+    </tr>
+    </tbody>
+  </table> -->
 </html>
+

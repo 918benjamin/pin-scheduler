@@ -46,3 +46,51 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+h1 {
+  font-size: 1.75em;
+  padding: 15px;
+}
+
+input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-left: 10px;
+}
+
+form {
+  border: 2px solid rgba(100, 100, 100, 1);
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
+}
+
+button {
+  background-color: rgb(140, 0, 255);
+  color: white;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+table, td, th {
+    border: 1px solid #333;
+    padding: 5px 10px;
+    border-collapse: separate;
+}
+
+
+
+thead, tfoot, th {
+    background-color: rgb(204, 204, 204);
+    font-weight: bold;
+}
+
+th:empty {
+  visibility: hidden;
+}
+th:blank {
+  visibility: hidden;
+}
