@@ -28,9 +28,56 @@ function chunksToObjs(chunks, rowSize) {
   return result;
 }
 
+function todayString() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const day = today.getDate();
+  let month = today.getMonth() + 1;
+
+  if (month < 10) {
+    month = `0${month}`;
+  }
+
+  return `${year}-${month}-${day}`;
+}
+
+function initializeFormDefaults(form, templates) {
+  form.elements.startDate.value = todayString();
+  form.elements.days.value = 7;
+  form.elements.graphics.value = 5;
+  form.elements.boards.value = 3;
+  renderTable(form, templates);
+}
+
+function renderTable(form, templates) {
+  const main = document.querySelector('main');
+  const startDate = new Date(form.elements.startDate.value.replace(/-/g, '\/'));
+  const days = parseInt(form.elements.days.value, 10);
+  const graphics = parseInt(form.elements.graphics.value, 10);
+  const boards = parseInt(form.elements.boards.value, 10);
+
+  const daysCount = days * graphics * boards;
+  const datesArr = arrOfDates(startDate, daysCount);
+  const dateStringsArr = datesArr.map(date => {
+    return `${date.getMonth()+1}/${date.getDate()}`
+  })
+
+  let daysArr = [];
+  for (let i = 1; i <= days; i += 1) {
+    daysArr.push(i);
+  }
+
+  let tableData = {
+    graphics: graphics,
+    days: daysArr,
+    boards: chunksToObjs(sliceIntoChunks(dateStringsArr, days), graphics),
+  };
+
+  main.innerHTML = templates.table(tableData);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const templates = {};
-  const main = document.querySelector('main');
   const form = document.querySelector('form');
 
   document.querySelectorAll('[type="text/x-handlebars"]').forEach(template => {
@@ -49,33 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return value === 0;
   })
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
+  initializeFormDefaults(form, templates);
 
-    const startDate = new Date(form.elements.startDate.value.replace(/-/g, '\/'));
-    const days = parseInt(form.elements.days.value, 10);
-    const graphics = parseInt(form.elements.graphics.value, 10);
-    const boards = parseInt(form.elements.boards.value, 10);
-
-    const daysCount = days * graphics * boards;
-    const datesArr = arrOfDates(startDate, daysCount);
-    const dateStringsArr = datesArr.map(date => {
-      return `${date.getMonth()+1}/${date.getDate()}`
-    })
-
-    let daysArr = [];
-    for (let i = 1; i <= days; i += 1) {
-      daysArr.push(i);
-    }
-
-    let tableData = {
-      graphics: graphics,
-      days: daysArr,
-      boards: chunksToObjs(sliceIntoChunks(dateStringsArr, days), graphics),
-    };
-
-    console.log(tableData);
-
-    main.innerHTML = templates.table(tableData);
-  });
+  form.addEventListener('input', e => {
+    renderTable(form, templates);
+  })
 });
