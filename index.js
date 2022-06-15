@@ -43,8 +43,8 @@ function todayString() {
 
 function initializeFormDefaults(form, templates) {
   form.elements.startDate.value = todayString();
-  form.elements.days.value = 7;
-  form.elements.graphics.value = 5;
+  form.elements.days.value = 5;
+  form.elements.graphics.value = 4;
   form.elements.boards.value = 3;
   renderTable(form, templates);
 }
